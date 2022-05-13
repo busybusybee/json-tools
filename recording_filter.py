@@ -17,7 +17,7 @@ import pandas as pd
 #         myset.add(int(row[5]) - 65536)
 # pass
 # myset.add(44218 - 65536)
-wanted_major = 68
+unwanted_majors = set(70, 71)
 mydir = "/Users/nihatsen/Desktop/WorkWork/simulation-data/oamc"
 # fileset = {
 #     "BeaconSensorData_day-25-03-2022-time-14-51-28.json",
@@ -40,7 +40,7 @@ for record in files:
         beacons_df = pd.DataFrame.from_records(myjson["beaconData"])
         # beacons_df = beacons_df[~(beacons_df["minor"].isin(myset))]
         # beacons_df = beacons_df[~((beacons_df["major"] == 6277) & (beacons_df["minor"] == -1611))]
-        beacons_df = beacons_df[beacons_df["major"] == wanted_major]
+        beacons_df = beacons_df[~beacons_df["major"].isin(unwanted_majors)]
 
         myjson["beaconData"] = beacons_df.to_dict('records')
         # with open(newfilename, "w+") as fp:
